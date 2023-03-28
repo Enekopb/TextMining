@@ -44,10 +44,9 @@ public class atributuSelekzioa {
 			saver.writeBatch();
 			
 			PrintWriter pw = new PrintWriter(args[2]);				//hiztegia gordetzeko
-			pw.println();
 			for (int i=0; i<filteredData.numAttributes()-1; i++) {
 				String s = filteredData.attribute(i).name();
-	            pw.println(s.substring(0, s.length() - 2));
+	            pw.println(s);
 	        }
 	        pw.close();
 		}
