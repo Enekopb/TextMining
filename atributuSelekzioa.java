@@ -49,7 +49,7 @@ public class atributuSelekzioa {
 			
 			for (int i=0; i<filteredData.numAttributes()-1; i++) {
 				String s = filteredData.attribute(i).name();
-	            pw.println(s);
+	            pw.println(s + ",1");
 	        }
 	        pw.close();
 	        	        
