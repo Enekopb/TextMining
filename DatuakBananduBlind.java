@@ -34,7 +34,7 @@ public class DatuakBananduBlind {
 			
 			//Class missing value al test
 			for (int i = 0; i < test.numInstances(); i++) {
-
+				test.instance(i).setClassMissing();
 			}
 		}
 }
