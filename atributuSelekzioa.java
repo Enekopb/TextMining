@@ -3,7 +3,7 @@ package proiektua;
 import java.io.File;
 import java.io.PrintWriter;
 
-import weka.attributeSelection.GainRatioAttributeEval;
+import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
@@ -21,7 +21,7 @@ public class atributuSelekzioa {
 			data.setClassIndex(data.numAttributes()-1);
 			
 			
-			GainRatioAttributeEval gr = new GainRatioAttributeEval();	//Atributu ebaluatzailea 
+			InfoGainAttributeEval ig = new InfoGainAttributeEval();	//Atributu ebaluatzailea 
 			
 			Ranker ranker = new Ranker();		//atributuak ordenatzeko
 			if (args.length==4 && Integer.parseInt(args[3])<=300) {
@@ -34,7 +34,7 @@ public class atributuSelekzioa {
 			
 			AttributeSelection as = new AttributeSelection();
 			as.setInputFormat(data);
-			as.setEvaluator(gr);
+			as.setEvaluator(ig);
 			as.setSearch(ranker);
 			Instances filteredData = Filter.useFilter(data, as);
 			
