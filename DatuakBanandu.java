@@ -7,17 +7,14 @@ import weka.filters.Filter;
 import weka.filters.supervised.instance.Resample;
 import weka.filters.unsupervised.attribute.Reorder;
 import weka.filters.unsupervised.attribute.StringToWordVector;
-import weka.filters.unsupervised.instance.Randomize;
-import weka.filters.unsupervised.instance.RemovePercentage;
 import weka.core.converters.ArffSaver;
-import weka.filters.unsupervised.instance.SparseToNonSparse;
 
 
 
 public class DatuakBanandu {
 
 	public static void main(String[] args) throws Exception {
-		args = new String[]{"/home/eneko/Escritorio/DatuakProba.arff", "/home/eneko/Escritorio/train.arff", "/home/eneko/Escritorio/test.arff"};
+		args = new String[]{"/home/eneko/Escritorio/DatuakProba.arff", "/home/eneko/Escritorio/train.arff", "/home/eneko/Escritorio/dev.arff"};
 			if(args.length==3) {
 			DataSource source = new DataSource(args[0]);
 			Instances data = source.getDataSet();
@@ -36,25 +33,28 @@ public class DatuakBanandu {
 	        resample.setInputFormat(data);
 	        resample.setInvertSelection(true);
 	        //test egin
-	        Instances test = Filter.useFilter(data, resample);
+	        Instances dev = Filter.useFilter(data, resample);
 	
 			System.out.println("Trainen instantzia kopurua:"+train.numInstances());
-			System.out.println("Testaren instantzia kopurua:"+test.numInstances());
+			System.out.println("Testaren instantzia kopurua:"+dev.numInstances());
 	
-			//Arff train errepresentazio bektorialera pasa.
 			StringToWordVector filter = new StringToWordVector();
 			filter.setAttributeIndices("last");		//Azken atributua
 			filter.setInputFormat(train);
 			filter.setLowerCaseTokens(true);
 	        filter.setWordsToKeep(7000); // Hitz kopurua
-	        Instances train2 = Filter.useFilter(data, filter);
+	        train = Filter.useFilter(data, filter);
 			
-			
-			//Reorder para poner la clase al final
 			Reorder reorder = new Reorder();
 	        reorder.setAttributeIndices("first-2,4-last,3");
-	        reorder.setInputFormat(train2);
-	        Instances train3 = Filter.useFilter(train2, reorder);
+	        reorder.setInputFormat(train);
+	        Instances train3 = Filter.useFilter(train, reorder);
+	        train3.setClassIndex(train.numAttributes()-1);
+	        
+	        Reorder reorder2 = new Reorder();
+	        reorder.setAttributeIndices("first-2,4-last,3");
+	        reorder.setInputFormat(dev);
+	        dev = Filter.useFilter(dev, reorder2);
 	        train3.setClassIndex(train.numAttributes()-1);
 	
 	        ArffSaver as = new ArffSaver();
@@ -63,9 +63,12 @@ public class DatuakBanandu {
 	        as.writeBatch();
 	        
 	        ArffSaver asT = new ArffSaver();
-	        asT.setInstances(test);
+	        asT.setInstances(dev);
 	        asT.setFile(new File(args[2]));
 	        asT.writeBatch();
+			}
+			else {
+				System.out.println("3 argumentu sartu behar dituzu: Datuak.arff fitxategia, train, eta dev fitxategia");
 			}
 	       
 	}

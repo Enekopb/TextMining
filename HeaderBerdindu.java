@@ -10,22 +10,23 @@ import weka.filters.unsupervised.attribute.FixedDictionaryStringToWordVector;
 
 public class HeaderBerdindu {
 
-		private static void main(String[] args) throws Exception {
+		public static void main(String[] args) throws Exception {
 			//Para igualar los atributos de train y test, necesitamos el hiztegi (tienen todos los atributos del train) 
 			//y al test añadirle los atributos.
-			args = new String[] {"/home/eneko/Escritorio/TextMining/hiztegia.txt", "/home/eneko/Escritorio/TextMining/dev.arff", "/home/eneko/Escritorio/TextMining/devBow.arff"};
+			args = new String[] {"/home/eneko/Escritorio/TextMining/hiztegia.txt", "/home/eneko/Escritorio/TextMining/test.arff", "/home/eneko/Escritorio/TextMining/devBow.arff"};
 			if(args.length==3) {
 				DataSource source = new DataSource(args[1]);
-				Instances devData = source.getDataSet(); 
-				devData.setClassIndex(2);
+				Instances dev = source.getDataSet(); 
+				dev.setClassIndex(2);
 				
-				FixedDictionaryStringToWordVector filterDictionary = new FixedDictionaryStringToWordVector();
-				filterDictionary.setDictionaryFile(new File(args[0]));
-				filterDictionary.setInputFormat(devData);
-				Instances devBow = Filter.useFilter(devData, filterDictionary);
+				FixedDictionaryStringToWordVector hiztegia = new FixedDictionaryStringToWordVector();
+				hiztegia.setDictionaryFile(new File(args[0]));
+				hiztegia.setInputFormat(dev);
+				dev = Filter.useFilter(dev, hiztegia);
 				
 				ArffSaver as = new ArffSaver();
-		        as.setInstances(devBow);
+		        as.setInstances(dev);
+		        as.setDestination(new File(args[2]));
 		        as.setFile(new File(args[2]));
 		        as.writeBatch();
 				
@@ -34,4 +35,3 @@ public class HeaderBerdindu {
 			}
 		}
 }
-
