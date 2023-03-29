@@ -20,8 +20,8 @@ public class HeaderBerdindu {
 				devData.setClassIndex(2);
 				
 				FixedDictionaryStringToWordVector filterDictionary = new FixedDictionaryStringToWordVector();
+				filterDictionary.setDictionaryFile(new File(args[0]));
 				filterDictionary.setInputFormat(devData);
-				filterDictionary.setDictionaryFile(args[0]);
 				Instances devBow = Filter.useFilter(devData, filterDictionary);
 				
 				ArffSaver as = new ArffSaver();
