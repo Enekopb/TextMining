@@ -21,7 +21,7 @@ public class HeaderBerdinduTest6 {
 			dev.setClassIndex(2);
 							
 			Remove remove = new Remove();
-			remove.setAttributeIndices("6");
+			remove.setAttributeIndices("7");
 			remove.setInputFormat(dev);
 			dev = Filter.useFilter(dev, remove);
 			
