@@ -58,12 +58,6 @@ public class DatuakBanandu3 {
 	        train = Filter.useFilter(train, reorder);
 	        train.setClassIndex(train.numAttributes()-1);
 	        
-	        Reorder reorder2 = new Reorder();
-	        reorder2.setAttributeIndices("first-2,4-last,3");
-	        reorder2.setInputFormat(dev);
-	        dev = Filter.useFilter(dev, reorder2);
-	        dev.setClassIndex(dev.numAttributes()-1);
-	
 	        ArffSaver as = new ArffSaver();
 	        as.setInstances(train);
 	        as.setFile(new File(args[1]));
