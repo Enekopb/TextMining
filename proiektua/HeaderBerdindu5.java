@@ -20,7 +20,7 @@ public class HeaderBerdindu5 {
 				dev.setClassIndex(2);
 								
 				Remove remove = new Remove();
-				remove.setAttributeIndices("6");
+				remove.setAttributeIndices("7");
 				remove.setInputFormat(dev);
 				dev = Filter.useFilter(dev, remove);
 				
@@ -28,7 +28,13 @@ public class HeaderBerdindu5 {
 				hiztegia.setDictionaryFile(new File(args[0]));
 				hiztegia.setInputFormat(dev);
 				dev = Filter.useFilter(dev, hiztegia);
-								
+				
+				Reorder reorder = new Reorder();
+		        reorder.setAttributeIndices("first-2,4-last,3");
+		        reorder.setInputFormat(dev);
+		        dev = Filter.useFilter(dev, reorder);
+		        dev.setClassIndex(dev.numAttributes()-1);
+							
 				ArffSaver as = new ArffSaver();
 		        as.setInstances(dev);
 		        as.setDestination(new File(args[2]));
