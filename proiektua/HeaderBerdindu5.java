@@ -20,7 +20,7 @@ public class HeaderBerdindu5 {
 				dev.setClassIndex(2);
 								
 				Remove remove = new Remove();
-				remove.setAttributeIndices("7");
+				remove.setAttributeIndices("6");
 				remove.setInputFormat(dev);
 				dev = Filter.useFilter(dev, remove);
 				
