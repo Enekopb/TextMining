@@ -41,13 +41,7 @@ public class DatuakBananduBlind2 {
 				for (int i = 0; i < test.numInstances(); i++) {
 					test.instance(i).setClassMissing();
 				}
-				
-				Reorder reorder = new Reorder();
-		        reorder.setAttributeIndices("first-2,4-last,3");
-		        reorder.setInputFormat(test);
-		        test = Filter.useFilter(test, reorder);
-		        test.setClassIndex(train.numAttributes()-1);
-		
+					
 		        ArffSaver as = new ArffSaver();
 		        as.setInstances(train);
 		        as.setFile(new File(args[1]));
