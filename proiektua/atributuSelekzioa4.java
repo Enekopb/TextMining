@@ -30,7 +30,7 @@ public class atributuSelekzioa4 {
 			InfoGainAttributeEval ig = new InfoGainAttributeEval();	//Atributu ebaluatzailea 
 			
 			Ranker ranker = new Ranker();		//atributuak ordenatzeko
-			ranker.setNumToSelect(600);
+			ranker.setNumToSelect(300);
 			ranker.setThreshold(0.1);			
 			
 			AttributeSelection as = new AttributeSelection();
